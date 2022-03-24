@@ -5,14 +5,26 @@ POST ```https://api-seller.ozon.ru/v2/returns/company/fbo```
 ## Пример использование
 
 ```go
-ozon := api.OzonAPI{AccountId: clientid, Token: apikey}
+package main
 
-body := returns.ReturnsPayload{
-  Limit:  1000,
-  Offset: 0,
+import (
+	"log"
+
+	owozon "github.com/owsup-ru/owozon"
+	returns "github.com/owsup-ru/owozon/api/returns"
+)
+
+func main() {
+	body := returns.ReturnsPayload{
+    Limit:  1000,
+    Offset: 0,
+  }
+
+	ozon := owozon.Init("clientid", "token")
+	data, _ := ozon.GetReturnsFbo(body)
+
+	log.Println(data)
 }
-
-data, err := ozon.GetReturnsFbo(body)
 ```
 
 

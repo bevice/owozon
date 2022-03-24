@@ -5,23 +5,36 @@ POST ```https://api-seller.ozon.ru/v2/posting/fbo/list```
 ## Пример использование
 
 ```go
-ozon := api.OzonAPI{AccountId: clientid, Token: apikey}
+package main
 
-body := posting.FbsListPayload{
-	Limit:  1000,
-	Offset: 0,
-	With: posting.FbsListWith{
-		AnalyticsData: true,
-		FinancialData: true,
-		Barcodes:      true,
-	},
-	Filter: posting.FbsListFilter{
-		Since: "2022-01-01",
-		To:    "2022-02-19",
-	},
+import (
+	"log"
+
+	owozon "github.com/owsup-ru/owozon"
+	posting "github.com/owsup-ru/owozon/api/posting"
+)
+
+func main() {
+	body := posting.FboListPayload{
+		Limit:  1000,
+		Offset: 0,
+		With: posting.FboListWith{
+			AnalyticsData: true,
+			FinancialData: true,
+		},
+		Filter: posting.FboListFilter{
+			Since: "2022-01-01",
+			To:    "2022-02-19",
+		},
+	}
+
+
+	ozon := owozon.Init("clientid", "token")
+
+	data, _ := ozon.FboList(body)
+
+	log.Println(data)
 }
-
-data, err := ozon.FbsList(body)
 ```
 
 ## Ответ 

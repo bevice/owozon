@@ -5,10 +5,26 @@ POST ```https://api-seller.ozon.ru/v3/products/info/attributes```
 ## Пример использование
 
 ```go
-body := api.InfoAttributesPayload{}
+package main
 
-data, err := api.ProductInfoAttributes(apikey, clientid, body)
+import (
+	"log"
+
+	owozon "github.com/owsup-ru/owozon"
+	api "github.com/owsup-ru/owozon/api/products"
+)
+
+func main() {
+	body := api.InfoAttributesPayload{}
+
+	ozon := owozon.Init("clientid", "token")
+
+	data, _ := ozon.ProductInfoAttributes(body)
+
+	log.Println(data)
+}
 ```
+
 
 ## Ответ 
 
@@ -18,38 +34,38 @@ data, err := api.ProductInfoAttributes(apikey, clientid, body)
 // Response
 type IProductInfoAttributes struct {
 	Result []struct {
-		ID            int    `json:"id"`
-		Barcode       string `json:"barcode"`
-		CategoryID    int    `json:"category_id"`
-		Name          string `json:"name"`
-		OfferID       string `json:"offer_id"`
-		Height        int    `json:"height"`
-		Depth         int    `json:"depth"`
-		Width         int    `json:"width"`
-		DimensionUnit string `json:"dimension_unit"`
-		Weight        int    `json:"weight"`
-		WeightUnit    string `json:"weight_unit"`
+		ID            int   
+		Barcode       string
+		CategoryID    int   
+		Name          string
+		OfferID       string
+		Height        int   
+		Depth         int   
+		Width         int   
+		DimensionUnit string
+		Weight        int   
+		WeightUnit    string
 		Images        []struct {
-			FileName string `json:"file_name"`
-			Default  bool   `json:"default"`
-			Index    int    `json:"index"`
-		} `json:"images"`
-		ImageGroupID string        `json:"image_group_id"`
-		Images360    []interface{} `json:"images360"`
-		PdfList      []interface{} `json:"pdf_list"`
+			FileName string
+			Default  bool  
+			Index    int   
+		}
+		ImageGroupID string       
+		Images360    []interface{}
+		PdfList      []interface{}
 		Attributes   []struct {
-			AttributeID int `json:"attribute_id"`
-			ComplexID   int `json:"complex_id"`
+			AttributeID int
+			ComplexID   int
 			Values      []struct {
-				DictionaryValueID int    `json:"dictionary_value_id"`
-				Value             string `json:"value"`
-			} `json:"values"`
-		} `json:"attributes"`
-		ComplexAttributes []interface{} `json:"complex_attributes"`
-		ColorImage        string        `json:"color_image"`
-		LastID            string        `json:"last_id"`
-	} `json:"result"`
-	Total  int    `json:"total"`
-	LastID string `json:"last_id"`
+				DictionaryValueID int   
+				Value             string
+			}
+		}
+		ComplexAttributes []interface{}
+		ColorImage        string       
+		LastID            string       
+	}
+	Total  int   
+	LastID string
 }
 ```

@@ -5,18 +5,33 @@ POST: ```v2/product/list```
 
 ## Пример использование
 
-```go
-body := api.PayloadList{
-  Limit: 100,         // Максимальное количество товаров за запрос (Минимум — 1, Максимум — 1000)
-  Filter: api.Filter{
-    Visibility: "ALL",                              // Фильтр по видимости товара
-    ProductId:  []string{"000000000", "000000001"}, // Если нужно взять товары с такими id
-		OfferId:    []string{"aa-000", "aa-001"},       // Если нужно взять товары с такими артиклами
-  },
-  LastId: "WzIxNzYwNjMwOSwyMTc2MDYzMDld"            // Используеться для того что бы получить вторую страницу товаров ( лимит 100, а товаров 200, потребуеться послать запрос два раза )
-}
 
-data, err := api.ProductsList(apikey, clientid, body)
+```go
+package main
+
+import (
+	"log"
+
+	owozon "github.com/owsup-ru/owozon"
+	api "github.com/owsup-ru/owozon/api/products"
+)
+
+func main() {
+	body := api.PayloadList{
+    Limit: 100,         // Максимальное количество товаров за запрос (Минимум — 1, Максимум — 1000)
+    Filter: api.Filter{
+      Visibility: "ALL",                              // Фильтр по видимости товара
+      ProductId:  []string{"000000000", "000000001"}, // Если нужно взять товары с такими id
+      OfferId:    []string{"aa-000", "aa-001"},       // Если нужно взять товары с такими артиклами
+    },
+    LastId: "WzIxNzYwNjMwOSwyMTc2MDYzMDld"            // Используеться для того что бы получить вторую страницу товаров ( лимит 100, а товаров 200, потребуеться послать запрос два раза )
+  }}
+
+	ozon := owozon.Init("clientid", "token")
+	data, _ := ozon.ProductsList(body)
+
+	log.Println(data)
+}
 ```
 
 Фильтр по видимости товара:
